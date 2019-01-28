@@ -19,7 +19,7 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Utils.cmake)
 
 #Some things have order. This must be put in front alone
-mxnet_option(USE_CUDA             "Build with CUDA support"   ON)
+mxnet_option(USE_CUDA             "Build with CUDA support"   OFF)
 mxnet_option(USE_OLDCMAKECUDA     "Build with old cmake cuda" OFF)
 mxnet_option(USE_NCCL             "Use NVidia NCCL with CUDA" OFF)
 mxnet_option(USE_OPENCV           "Build with OpenCV support" ON)
@@ -45,6 +45,7 @@ mxnet_option(USE_CXX14_IF_AVAILABLE "Build with C++14 if the compiler supports i
 mxnet_option(USE_VTUNE            "Enable use of Intel Amplifier XE (VTune)" OFF) # one could set VTUNE_ROOT for search path
 mxnet_option(ENABLE_CUDA_RTC      "Build with CUDA runtime compilation support" ON)
 mxnet_option(BUILD_CPP_EXAMPLES   "Build cpp examples" ON)
+mxnet_option(BUILD_ELIXIR         "Build Elixir" ON)
 mxnet_option(INSTALL_EXAMPLES     "Install the example source files." OFF)
 mxnet_option(USE_SIGNAL_HANDLER   "Print stack traces on segfaults." OFF)
 mxnet_option(USE_TENSORRT         "Enable infeference optimization with TensorRT." OFF)
@@ -796,6 +797,11 @@ endif()
 if(BUILD_CPP_EXAMPLES)
   add_subdirectory(example/image-classification/predict-cpp)
 endif()
+
+if(BUILD_ELIXIR)
+  add_subdirectory(elixir_mxnet)
+endif()
+
 
 # ---[ Linter target
 if(MSVC)
